@@ -10,7 +10,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <description>sshe</description>
   
     <!-- ==========================指定Maven仓库======================== -->  
-    <repositories>  
+    <!-- <repositories>  
         <repository>  
             <id>maven</id>  
             <name>Maven Repository Switchboard</name>  
@@ -32,7 +32,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <url>http://code.alibabatech.com/mvn/snapshots/</url>  
             <layout>default</layout>  
         </repository>  
-    </repositories>
+    </repositories> -->
         
     <properties>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -140,32 +140,143 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	        <artifactId>hibernate-core</artifactId>  
 	        <version>${hibernate.version}</version>  
 	    </dependency>
-	      
+	    
+	    <!-- Json -->
+	    <dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.4</version>
+		</dependency>
+	    
+        <dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+        
+	    
+	    <!-- ============poi ================-->
+	    <dependency>
+		   <groupId>org.apache.poi</groupId>
+		   <artifactId>poi</artifactId>
+		   <version>3.17</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>3.17</version>
+		</dependency> 
 	</dependencies>
   
   
-  <build>  
-    <plugins>  
-      <plugin>  
-        <artifactId>maven-compiler-plugin</artifactId>  
-        <version>2.3.2</version>  
-        <configuration>
-            <source>${java-version}</source>
-            <target>${java-version}</target>
-            <!-- true:跳过测试 -->
-            <skip>true</skip>
-            <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>  
-      <plugin>  
-        <artifactId>maven-war-plugin</artifactId>  
-        <version>2.2</version>  
-        <configuration>  
-          <version>3.0</version>  
-          <failOnMissingWebXml>false</failOnMissingWebXml>  
-        </configuration>  
-      </plugin>  
-    </plugins>  
-  </build>   
+    <build>
+	    <pluginManagement>
+	        <plugins>  
+                <plugin>  
+                    <artifactId>maven-compiler-plugin</artifactId>  
+                    <version>2.3.2</version>  
+                    <configuration>
+                        <source>${java-version}</source>
+                        <target>${java-version}</target>
+                        <!-- true:跳过测试 -->
+                        <skip>true</skip>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                
+                <!-- 设置多个源文件夹 -->  
+                <plugin>  
+                    <artifactId>maven-war-plugin</artifactId>  
+                    <version>2.2</version>  
+                    <configuration>  
+                        <version>3.0</version>  
+                        <failOnMissingWebXml>false</failOnMissingWebXml>  
+                    </configuration>  
+                </plugin>
+          
+          
+                <plugin>  
+                    <groupId>org.codehaus.mojo</groupId>  
+                    <artifactId>build-helper-maven-plugin</artifactId>  
+                    <version>1.8</version>  
+                    <executions>  
+			        <!-- 添加主资源文件目录 -->  
+			        <execution>  
+			            <!-- 自定义名称,不可重复  --> 
+			            <id>add-resource</id>  
+			            <!-- 指定绑定到生命周期  --> 
+			            <phase>initialize</phase>  
+			            <!-- 指定指定的目标,可添加多个 -->  
+			            <goals>  
+			                <goal>add-resource</goal>  
+			            </goals>  
+			            <configuration>  
+			                <resources>  
+			                    <!-- 资源文件目录,可添加多个   -->
+			                    <resource>  
+			                        <directory>${basedir}/src/main/one</directory>  
+			                        <!-- 是否启用变量过滤  --> 
+			                        <filtering>true</filtering>  
+			                     <!--    排除的文件,可添加多个   -->
+			                        <excludes>  
+			                            <exclude>**/*.java</exclude>  
+			                        </excludes>  
+			                    </resource>  
+			                    <resource>  
+			                        <directory>${basedir}/src/main/two</directory>  
+			                        <filtering>true</filtering>  
+			                        <excludes>  
+			                            <exclude>**/*.java</exclude>  
+			                        </excludes>  
+			                    </resource>  
+			                </resources>  
+			            </configuration>  
+			        </execution>  
+			  
+			        <!-- 添加主源码目录 -->  
+			        <execution>  
+			            <id>add-source</id>  
+			            <phase>initialize</phase>  
+			            <goals>  
+			                <goal>add-source</goal>  
+			            </goals>  
+			            <configuration>  
+			                <sources>  
+			                    <source>${basedir}/src/main/common</source>  
+			                    <source>${basedir}/src/main/user</source>  
+			                </sources>  
+			            </configuration>  
+			        </execution>  
+			  
+			        <!-- 添加测试源码目录 -->  
+			        <execution>  
+			            <id>add-test-source</id>  
+			            <phase>initialize</phase>  
+			            <goals>  
+			                <goal>add-test-source</goal>  
+			            </goals>  
+			            <configuration>  
+			                <sources>  
+			                    <source>${basedir}/src/main/test1</source>  
+			                    <source>${basedir}/src/main/test2</source>  
+			                </sources>  
+			            </configuration>  
+			        </execution>  
+			    </executions>  
+			</plugin>   
+    </plugins>
+	    </pluginManagement>
+          
+    </build>   
 
 </project>
