@@ -35,6 +35,8 @@ public class AjaxResponse{
 		this.result = result;
 	}
 
-	
+	public void setData(String key,Object value){
+		result.put(key, value);
+	}
 	
 }

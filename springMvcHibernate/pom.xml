@@ -1,220 +1,239 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.hikvision</groupId>
-  <artifactId>springMvcHibernate</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  
-  
-  <properties>  
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java-version>1.8</java-version>
-        <spring.version>4.2.5.RELEASE</spring.version>
-        <struts2.version>2.3.24.1</struts2.version>
-        <hibernate.version>4.3.6.Final</hibernate.version>
-        <logback.version>1.1.7</logback.version>
-        <slf4j.version>1.7.21</slf4j.version>
-    </properties>
-    
-    <dependencies>
-        <!-- 必须要，否则jsp中会找不到HttpServlet错误 -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-            <scope>provided</scope>
-        </dependency>  
-        <!-- ======================struts2============================ -->  
-        <!-- <dependency>  
-            <groupId>org.apache.struts</groupId>  
-            <artifactId>struts2-core</artifactId>  
-            <version>${struts2.version}</version>  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hikvision</groupId>
+	<artifactId>springMvcHibernate</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version>1.8</java-version>
+		<spring.version>4.2.5.RELEASE</spring.version>
+		<struts2.version>2.3.24.1</struts2.version>
+		<hibernate.version>4.3.6.Final</hibernate.version>
+		<logback.version>1.1.7</logback.version>
+		<slf4j.version>1.7.21</slf4j.version>
+		<axis2.version>1.6.2</axis2.version>
+	</properties>
+
+	<dependencies>
+		<!-- 必须要，否则jsp中会找不到HttpServlet错误 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- ======================struts2============================ -->
+		<!-- <dependency> <groupId>org.apache.struts</groupId> <artifactId>struts2-core</artifactId> 
+			<version>${struts2.version}</version> </dependency> struts2整合spring <dependency> 
+			<groupId>org.apache.struts</groupId> <artifactId>struts2-spring-plugin</artifactId> 
+			<version>${struts2.version}</version> </dependency> 约定优于配置的插件 <dependency> 
+			<groupId>org.apache.struts</groupId> <artifactId>struts2-convention-plugin</artifactId> 
+			<version>${struts2.version}</version> </dependency> -->
+
+		<!-- ===========================spring========================== -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- springMvc 的核心依赖 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<!-- ========================Junit======================= -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11-beta-1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- =====================log4j，改用logback日志============================ -->
+		<!-- logback使用需要和slf4j一起使用，所以总共需要添加依赖的包有slf4j-api.jar，logback-core.jar， 
+			logback-classic.jar，logback-access.jar这个暂时用不到 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>ch.qos.logback</groupId> <artifactId>logback-classic</artifactId> 
+			<version>1.1.3</version> </dependency> -->
+		<dependency>
+			<groupId>org.logback-extensions</groupId>
+			<artifactId>logback-ext-spring</artifactId>
+			<version>0.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<!-- ======================mysql============================ -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.32</version>
+		</dependency>
+
+		<!-- Spring中进行aop操作除了导入基本的jar包，还需要导入aop相关jar包,其中就需要一个aspectj框架支持的包 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.2</version>
+		</dependency>
+
+		<!-- hibernate4 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- Json -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+
+		<!-- ============poi ================ -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+
+		<!--=================axis2 begin================== -->
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2</artifactId>
+			<version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-spring</artifactId>
+			<version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-http</artifactId>
+			<version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-local</artifactId>
+            <version>${axis2.version}</version>
         </dependency>
-        struts2整合spring   
-        <dependency> 
-            <groupId>org.apache.struts</groupId>  
-            <artifactId>struts2-spring-plugin</artifactId>  
-            <version>${struts2.version}</version>  
-        </dependency>
-        约定优于配置的插件   
-        <dependency>  
-            <groupId>org.apache.struts</groupId>  
-            <artifactId>struts2-convention-plugin</artifactId>  
-            <version>${struts2.version}</version>  
-        </dependency> -->
-    
-        <!-- ===========================spring========================== -->  
-        <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-core</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency>  
-        <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-context</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency>  
-        <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-jdbc</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency>  
-        <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-beans</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency>  
-        <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-web</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency>  
-        <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-expression</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency>  
-        <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-orm</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency> 
-        <!-- springMvc 的核心依赖-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency> 
-        
-        
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.1.2</version>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-xmlbeans</artifactId>
+            <version>${axis2.version}</version>
         </dependency>
-        
-        <!-- ========================Junit======================= -->  
-        <dependency>  
-            <groupId>junit</groupId>  
-            <artifactId>junit</artifactId>  
-            <version>4.11-beta-1</version>  
-            <scope>test</scope>  
-        </dependency>  
-              
-        <!-- =====================log4j，改用logback日志============================ -->
-        <!-- logback使用需要和slf4j一起使用，所以总共需要添加依赖的包有slf4j-api.jar，logback-core.jar，
-                        logback-classic.jar，logback-access.jar这个暂时用不到  --> 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency> 
-        <!-- <dependency>  
-		    <groupId>ch.qos.logback</groupId>  
-		    <artifactId>logback-classic</artifactId>  
-		    <version>1.1.3</version>  
-		</dependency>  --> 
-		<dependency>  
-		    <groupId>org.logback-extensions</groupId>  
-		    <artifactId>logback-ext-spring</artifactId>  
-		    <version>0.1.2</version>  
-		</dependency>  
-		<dependency>  
-		    <groupId>org.slf4j</groupId>  
-		    <artifactId>jcl-over-slf4j</artifactId>  
-		    <version>1.7.12</version>  
-		</dependency>  
-        <!-- ======================mysql============================-->   
-        <dependency>  
-            <groupId>mysql</groupId>  
-            <artifactId>mysql-connector-java</artifactId>  
-            <version>5.1.32</version>  
-        </dependency>  
-               
-        <!-- Spring中进行aop操作除了导入基本的jar包，还需要导入aop相关jar包,其中就需要一个aspectj框架支持的包 -->     
-        <dependency>  
-            <groupId>org.aspectj</groupId>  
-            <artifactId>aspectjweaver</artifactId>  
-            <version>1.8.2</version>  
-        </dependency>
-        
-        <!-- hibernate4 -->  
-        <dependency>  
-            <groupId>org.hibernate</groupId>  
-            <artifactId>hibernate-core</artifactId>  
-            <version>${hibernate.version}</version>  
-        </dependency>
-        
-        <!-- Json -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.4</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        
-        
-        <!-- ============poi ================-->
-        <dependency>
-           <groupId>org.apache.poi</groupId>
-           <artifactId>poi</artifactId>
-           <version>3.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
-        </dependency> 
-    </dependencies>
-  
-  
-  <build>  
-    <plugins>  
-      <plugin>  
-        <artifactId>maven-compiler-plugin</artifactId>  
-        <version>2.3.2</version>  
-        <configuration>
-            <source>${java-version}</source>
-            <target>${java-version}</target>
-            <!-- true:跳过测试 -->
-            <skip>true</skip>
-            <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>  
-      <plugin>  
-        <artifactId>maven-war-plugin</artifactId>  
-        <version>2.2</version>  
-        <configuration>  
-          <version>3.0</version>  
-          <failOnMissingWebXml>false</failOnMissingWebXml>  
-        </configuration>  
-      </plugin>  
-    </plugins>  
-  </build> 
+		<!--========================axis2 end============ -->
+
+	</dependencies>
+
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<!-- true:跳过测试 -->
+					<skip>true</skip>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<version>3.0</version>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
