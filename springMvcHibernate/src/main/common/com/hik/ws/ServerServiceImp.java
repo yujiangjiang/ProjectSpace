@@ -16,5 +16,12 @@ public class ServerServiceImp implements ServerService {
 		// TODO Auto-generated method stub
 		return "你好" + what;
 	}
+	
+	public String getInfo(){
+		
+		
+		
+		return "";
+	}
 
 }

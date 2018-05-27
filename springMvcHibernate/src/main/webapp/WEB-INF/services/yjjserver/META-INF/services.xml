@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<serviceGroup>
 <!-- 通过ServiceObjectSupplier参数指定SpringServletContextObjectSupplier类来获得Spring的ApplicationContext对象 -->
 <service name="ServiceServer">
     <description>axis2</description>
@@ -8,20 +8,31 @@
         org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier
     </parameter>
 
-    <!--
-       SpringBeanName固定的不能改
-       serviceServerImpl是spring中注册的实现类得id,@Component注解
-     -->
+    <!-- SpringBeanName固定的不能改 serviceServerImpl是spring中注册的实现类得id,@Component注解 -->
     <parameter name="SpringBeanName">serverServiceImp</parameter>
-    <!--
-  <messageReceivers>元素，该元素用于设置处理WebService方法的处理器。
-    例如，getGreeting方法有一个返回值，因此，需要使用可处理输入输出的RPCMessageReceiver类，
-    而update方法没有返回值，因此，需要使用只能处理输入的RPCInOnlyMessageReceiver类。
-     -->
+    <!-- <messageReceivers>元素，该元素用于设置处理WebService方法的处理器。 例如，getGreeting方法有一个返回值，因此，需要使用可处理输入输出的RPCMessageReceiver类， 
+        而update方法没有返回值，因此，需要使用只能处理输入的RPCInOnlyMessageReceiver类。 -->
     <messageReceivers>
         <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
-                         class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+            class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
         <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
-                         class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+            class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
     </messageReceivers>
 </service>
+
+<service name="LoginService">
+    <description>axis2</description>
+    <parameter name="ServiceObjectSupplier" locked="false">
+        org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier
+    </parameter>
+    <parameter name="SpringBeanName">loginService</parameter>
+    <messageReceivers>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+            class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+            class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+    </messageReceivers>
+</service>
+</serviceGroup>
+
+

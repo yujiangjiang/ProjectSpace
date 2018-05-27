@@ -78,8 +78,6 @@ public class WSClient {
 	      // String r = (String) response[0];  
 	      String r= (String) response[0];  
 	      System.out.println("=============="+r);
-	      
-	  
 	    } catch (AxisFault e) {  
 	      e.printStackTrace();  
 	    }  
@@ -92,7 +90,7 @@ public class WSClient {
 	  public static void testDocument() {  
 	    try {  
 	      // String url = "http://localhost:8080/axis2ServerDemo/services/StockQuoteService";  
-	      String url = "http://localhost:8080/StockQuote/services/StockQuoteServiceSOAP11port?wsdl";  
+	      String url = "http://localhost:8080/springMvcHibernate/services/LoginService";  
 	  
 	      Options options = new Options();  
 	      // 指定调用WebService的URL  
@@ -105,11 +103,11 @@ public class WSClient {
 	        
 	        
 	      OMFactory fac = OMAbstractFactory.getOMFactory();  
-	      String tns = "http://quickstart.samples/";  
+	      String tns = "http://impl.ws.hik.com";  
 	      // 命名空间，有时命名空间不增加没事，不过最好加上，因为有时有事，你懂的  
 	      OMNamespace omNs = fac.createOMNamespace(tns, "");  
 	  
-	      OMElement method = fac.createOMElement("getPrice", omNs);  
+	      OMElement method = fac.createOMElement("login", omNs);  
 	      OMElement symbol = fac.createOMElement("symbol", omNs);  
 	      // symbol.setText("1");  
 	      symbol.addChild(fac.createOMText(symbol, "Axis2 Echo String "));  
